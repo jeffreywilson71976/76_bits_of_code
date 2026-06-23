@@ -5,20 +5,21 @@ import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup
 
+# Save URL to variable to pass to the function
+google_doc = 'https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub'
+
 # Define function to fetch the Google Doc and return a DataFrame of the data
 # Set the parser to (flavor) to Beautiful Soup 4 to render the unicode chars.
 # Set the header to 0 via the header param to set the column name to the first row in the table. 
 # Finally as the data is in a table the DataFrame needs to be assigned to the target table
 def fetch_google_doc(google_doc):
     table = pd.read_html(google_doc, flavor = 'bs4', header=0)
-    df = table[0] # as there is only one table in the doc
-    
+    df = table[0] # as there is only one table in the doc    
     # define variables for the plot function (x_cord, y_cord, char) as 
     # lists of values from the DataFrame columns
     x_cord = [int(i) for i in list(df['x-coordinate'])]
     y_cord = [int(i) for i in list(df['y-coordinate'])]
     char = list(df['Character'])
-
     # get max values from x_cord and y_cord, to decide the max length for the grid
     max_x = max(x_cord)
     max_y = max(y_cord)
@@ -35,7 +36,7 @@ def fetch_google_doc(google_doc):
         grid_2.append(grid[i])    
     for row in grid_2:
         print(''.join(row))
+    return 
 
-# Set the google doc url to variable and call the Google Doc via call to the fetch function
-google_doc = 'https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub'
+# Call the function while passing the saved URL
 fetch_google_doc(google_doc)
