@@ -22,13 +22,15 @@ def fetch_google_doc(google_doc):
     # get max values from x_cord and y_cord, to decide the max length for the grid
     max_x = max(x_cord)
     max_y = max(y_cord)
-
-    grid = np.full((max_y+1, max_x+1), ' ') # need to add 1 to the max to ensure that the index from the list is converted to the correct dimensions
+    # Create a grid need to add 1 to the max to ensure that the index from the list is 
+    # converted to the correct dimensions and plot the characters on a grid using numpy
+    grid = np.full((max_y+1, max_x+1), ' ') 
     for i in range(len(x_cord)):
         # Reversing x and y coordinates to adjust the grid
         grid[y_cord[i]][x_cord[i]] = char[i]
     # Create an empty grid to insert the values from the first grid and transverse the values backwards    
     grid_2 = []
+    # Print out the hidden message
     for i in range(len(grid)-1, -1 , -1):
         grid_2.append(grid[i])    
     for row in grid_2:
